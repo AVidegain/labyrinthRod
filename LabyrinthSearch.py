@@ -255,3 +255,58 @@ def solve_labyrinth(initial_state: LabyrinthState) -> int:
         states_to_explore.update(valid_moves)
 
     return -1
+
+
+def labyrinth_parser(raw_labyrinth: list[list[str]]) -> LabyrinthState:
+    """Parses the input into a `labyrinthState`.
+
+    Args:
+        raw_labyrinth (list[list[str]]): Lists describing the input using '.' and '#'.
+
+    Raises:
+        ValueError: Raises exception if the input is not valid.
+
+    Returns:
+        LabyrinthState
+    """
+
+    # Check that the input is valid.
+    if not val_lab(raw_labyrinth):
+        raise ValueError("Invalid input")
+
+    walls = []
+
+    for x, row in enumerate(raw_labyrinth):
+        for y, element in enumerate(row):
+            if element == "#":
+                walls.append(Coordinates(x=x, y=y))
+
+    n_rows = len(raw_labyrinth)
+    n_cols = len(raw_labyrinth[0])
+    rod_pos = Coordinates(x=1, y=0)
+
+    return LabyrinthState(
+        n_rows=n_rows,
+        n_cols=n_cols,
+        walls=walls,
+        rod_pos=rod_pos,
+        rod_orientation=Orientation.HORIZONTAL,
+        steps=0,
+    )
+
+
+def min_dist_lab(raw_labyrinth: list[list[str]]) -> int:
+    """Take two nested lists describing a labyrinth and founds the minimum amount of
+    steps required to take a rod from the top left corner to the bottom right corner.
+
+    Args:
+        raw_labyrinth (list[list[str]]): Nested list describing the labyrinth.
+
+    Returns:
+        int: Minimum number of steps to complete the labyrinth or -1 if it can not be
+        solved.
+    """
+
+    labyrinth = labyrinth_parser(raw_labyrinth)
+    n_steps = solve_labyrinth(labyrinth)
+    return n_steps
