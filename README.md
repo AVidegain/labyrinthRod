@@ -53,9 +53,9 @@ The `solve_labyrinth()` function implements a breadth-first search algorithm to 
 
 ## Usage
 
-To use the labyrinth solver, call `min_dist_lab()` and pass in the nested list representation of the labyrinth. It will return the minimum number of steps required to solve the labyrinth, -1 if it is not possible to solve it or raise a `InvalidLabyrinthError` if the labyrinth input is invalid.
+The file `LabyrinthSearch.py` contains the solution logic. To use the labyrinth solver, call `min_dist_lab()` and pass in the nested list representation of the labyrinth. It will return the minimum number of steps required to solve the labyrinth, -1 if it is not possible to solve it or raise a `InvalidLabyrinthError` if the labyrinth input is invalid.
 
 ## Testing
 
-The code includes a set of unit tests to verify the correctness of the labyrinth solver. The test cases cover different scenarios, including solvable labyrinths, unsolvable labyrinths, and invalid inputs. In order to not use external frameworks, the standard library `unittest` module is used, instead of other options, such as `pytest`.
+The file `TestLabyrinth.py` contains a set of unit tests to verify the correctness of the labyrinth solver. The test cases cover different scenarios, including solvable labyrinths, unsolvable labyrinths, and invalid inputs. In order to not use external frameworks, the standard library `unittest` module is used, instead of other options, such as `pytest`.
 
