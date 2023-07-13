@@ -3,6 +3,15 @@ from dataclasses import dataclass, replace
 from enum import Enum
 
 
+class InvalidLabyrinthError(Exception):
+    """Exception raised when attempted to use an input that does not represent a
+    labyrinth.
+    """
+
+    def __init__(self, message="Labyrinth is not valid"):
+        super().__init__(message)
+
+
 class Orientation(Enum):
     HORIZONTAL = "h"
     VERTICAL = "v"
@@ -81,7 +90,7 @@ def validate_lab(raw_labyrinth: list[list[str]]) -> bool:
             if element not in (".", "#"):
                 return False
 
-    # Check that the is enough space for the initial state.
+    # Check that there is enough space for the initial state.
     if any(raw_labyrinth[0][i] == "#" for i in range(3)):
         return False
 
@@ -347,6 +356,9 @@ def min_dist_lab(raw_labyrinth: list[list[str]]) -> int:
         solved.
     """
 
-    labyrinth = labyrinth_parser(raw_labyrinth)
+    try:
+        labyrinth = labyrinth_parser(raw_labyrinth)
+    except ValueError:
+        raise InvalidLabyrinthError
     n_steps = solve_labyrinth(labyrinth)
     return n_steps
